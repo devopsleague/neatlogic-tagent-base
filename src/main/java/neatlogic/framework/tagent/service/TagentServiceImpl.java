@@ -474,7 +474,7 @@ public class TagentServiceImpl implements TagentService {
             if (oldFileVo != null) {
                 fileVo.setId(oldFileVo.getId());
             }
-            String filePath = FileUtil.saveData(TenantContext.get().getTenantUuid(), inputStream, fileVo.getId().toString(), fileVo.getContentType(), fileVo.getType());
+            String filePath = FileUtil.saveData(TenantContext.get().getTenantUuid(), inputStream, fileVo);
             fileVo.setPath(filePath);
             if (oldFileVo == null) {
                 fileMapper.insertFile(fileVo);
