@@ -172,7 +172,7 @@ public class TagentServiceImpl implements TagentService {
                 } else {
                     //情况2：使用副ip注册
 
-                    AccountBaseVo oldAccountVo = tagentMapper.getResourceAccountByIpAndPort(tagent.getIp(), protocolVo.getPort());
+                    AccountBaseVo oldAccountVo = tagentMapper.getTagentAccountByIpAndPort(tagent.getIp(), protocolVo.getPort());
                     newTagentAccountVo.setId(oldAccountVo.getId());
                     if (!newTagentAccountVo.equals(oldAccountVo)) {
                         updateAccountList.add(newTagentAccountVo);
@@ -181,7 +181,7 @@ public class TagentServiceImpl implements TagentService {
                     //如果新包含ip不包含旧的主ip，这种情况确定要删除账号，直接删除原主ip账号信息、tagent_ip的记录
                     if (CollectionUtils.isEmpty(tagent.getIpList()) || !tagent.getIpList().contains(oldTagentAccount.getIp())) {
                         tagentMapper.deleteTagentIp(oldTagentVo.getId(), oldTagentVo.getIp());
-                        AccountBaseVo oldIpAccountVo = tagentMapper.getResourceAccountByIpAndPort(oldTagentVo.getIp(), tagent.getPort());
+                        AccountBaseVo oldIpAccountVo = tagentMapper.getTagentAccountByIpAndPort(oldTagentVo.getIp(), tagent.getPort());
                         if (oldIpAccountVo != null) {
                             Long accountId = oldIpAccountVo.getId();
                             tagentMapper.deleteAccountById(accountId);
@@ -196,7 +196,7 @@ public class TagentServiceImpl implements TagentService {
 
             } else {
                 //这情况是tagent表缺少accountId
-                AccountBaseVo registeredTagentAccountVo = tagentMapper.getResourceAccountByIpAndPort(tagent.getIp(), tagent.getPort());
+                AccountBaseVo registeredTagentAccountVo = tagentMapper.getTagentAccountByIpAndPort(tagent.getIp(), tagent.getPort());
                 if (registeredTagentAccountVo != null) {
                     newTagentAccountVo.setId(registeredTagentAccountVo.getId());
                     updateAccountList.add(newTagentAccountVo);
@@ -328,7 +328,7 @@ public class TagentServiceImpl implements TagentService {
                 if (CollectionUtils.isNotEmpty(sameIpList) && sameIpList.contains(ip)) {
                     continue;
                 }
-                AccountBaseVo oldAccountVo = tagentMapper.getResourceAccountByIpAndPort(ip, tagent.getPort());
+                AccountBaseVo oldAccountVo = tagentMapper.getTagentAccountByIpAndPort(ip, tagent.getPort());
                 if (oldAccountVo != null) {
                     Long accountId = oldAccountVo.getId();
                     tagentMapper.deleteAccountById(accountId);

@@ -75,7 +75,7 @@ public interface TagentMapper {
 
     AccountBaseVo getAccountByTagentId(Long id);
 
-    AccountBaseVo getResourceAccountByIpAndPort(@Param("ip") String ip, @Param("port") Integer port);
+    AccountBaseVo getTagentAccountByIpAndPort(@Param("ip") String ip, @Param("port") Integer port);
 
     AccountBaseVo getAccountById(Long id);
 

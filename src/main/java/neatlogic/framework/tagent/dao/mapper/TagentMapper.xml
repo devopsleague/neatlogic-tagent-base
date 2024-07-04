@@ -553,7 +553,7 @@
         WHERE t.id = #{id}
     </select>
 
-    <select id="getResourceAccountByIpAndPort" resultType="neatlogic.framework.cmdb.dto.resourcecenter.AccountBaseVo">
+    <select id="getTagentAccountByIpAndPort" resultType="neatlogic.framework.cmdb.dto.resourcecenter.AccountBaseVo">
         SELECT cra.id,
                cra.`name`,
                cra.`password`    as passwordCipher,
