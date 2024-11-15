@@ -15,18 +15,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.framework.tagent.dto;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.common.dto.BaseEditorVo;
 import neatlogic.framework.common.util.RC4Util;
 import neatlogic.framework.restful.annotation.EntityField;
 import neatlogic.framework.util.SnowflakeUtil;
-import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author lvzk
@@ -89,6 +91,8 @@ public class TagentVo extends BaseEditorVo {
     @EntityField(name = "tagent状态", type = ApiParamType.STRING)
     private String status;
     private Integer isFirstCreate;
+    @JSONField(serialize = false)
+    private JSONObject param;
 
     public TagentVo() {
     }
@@ -326,5 +330,26 @@ public class TagentVo extends BaseEditorVo {
 
     public void setIsFirstCreate(Integer isFirstCreate) {
         this.isFirstCreate = isFirstCreate;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TagentVo task = (TagentVo) o;
+        return Objects.equals(id, task.id) ;
+    }
+
+    public JSONObject getParam() {
+        return param;
+    }
+
+    public void setParam(JSONObject param) {
+        this.param = param;
     }
 }
